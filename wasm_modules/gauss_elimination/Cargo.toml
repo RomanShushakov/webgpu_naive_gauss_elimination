@@ -1,0 +1,50 @@
+[package]
+name = "gauss_elimination"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+crate-type = ["cdylib"]
+
+
+[dependencies]
+wasm-bindgen = "0.2.78"
+wasm-bindgen-futures = "0.4.28"
+js-sys = "0.3.55"
+
+
+[dependencies.web-sys]
+version = "0.3.55"
+features = [
+    "Window",
+    "Navigator",
+    "Gpu",
+    "GpuAdapter",
+    "GpuDevice",
+    "GpuBuffer", 
+    "GpuBufferDescriptor",
+    "GpuBufferUsage",
+    "GpuShaderModuleDescriptor",
+    "GpuShaderModule",
+    "GpuProgrammableStage",
+    "GpuComputePipelineDescriptor",
+    "GpuComputePipeline", 
+    "GpuBufferBinding",
+    "GpuBindGroupEntry",
+    "GpuBindGroupLayout",
+    "GpuBindGroupDescriptor",
+    "GpuBindGroup",
+    "GpuCommandEncoder",
+    "GpuComputePassEncoder",
+    "GpuCommandBuffer",
+    "GpuQueue",
+    "GpuMapMode",
+
+    "Worker",
+    "WorkerGlobalScope", 
+    "WorkerNavigator",
+
+    "GpuSupportedLimits",
+]
