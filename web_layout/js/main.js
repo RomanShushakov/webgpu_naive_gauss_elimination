@@ -41,7 +41,20 @@ const b_elements_values = [
 
 const button = document.querySelector(".click");
 button.addEventListener("click", async () => {
-    naive_gauss_elimination(a_rows_number, a_columns_number, a_elements_values, b_elements_values)
+
+    if (!navigator.gpu) {
+        console.log("WebGPU is not supported.");
+        return;
+    }
+
+    const adapter = await navigator.gpu.requestAdapter();
+    if (!adapter) {
+        console.log("Failed to get GPU adapter.");
+        return;
+    }
+    const device = await adapter.requestDevice();
+
+    naive_gauss_elimination(device, a_rows_number, a_columns_number, a_elements_values, b_elements_values)
         .then((result) => console.log(new Float32Array(result)));
     console.log("click");
 });

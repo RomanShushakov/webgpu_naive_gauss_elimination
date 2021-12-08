@@ -1,42 +1,43 @@
 use wasm_bindgen::prelude::*;
-use wasm_bindgen::JsCast;
+// use wasm_bindgen::JsCast;
 use wasm_bindgen_futures::JsFuture;
 // use wasm_bindgen_futures::spawn_local;
 use web_sys::
 {
-    GpuAdapter, GpuDevice, GpuBufferDescriptor, GpuBufferUsage, GpuShaderModuleDescriptor, 
+    GpuDevice, GpuBufferDescriptor, GpuBufferUsage, GpuShaderModuleDescriptor, 
     GpuProgrammableStage, GpuComputePipelineDescriptor, GpuBufferBinding, GpuBindGroupEntry, 
     GpuBindGroupDescriptor, GpuMapMode,
 
-    Window, WorkerGlobalScope, WorkerNavigator,
+    // GpuAdapter, 
+    // Window, WorkerGlobalScope, WorkerNavigator,
 };
 use js_sys::{Float32Array, Uint32Array};
 
 
-#[wasm_bindgen]
-extern "C"
-{
-    #[wasm_bindgen(js_namespace = console)]
-    pub fn log(value: &str);
-}
+// #[wasm_bindgen]
+// extern "C"
+// {
+//     #[wasm_bindgen(js_namespace = console)]
+//     pub fn log(value: &str);
+// }
 
 
-async fn device() -> Result<GpuDevice, JsValue>
-{
-    let window = web_sys::window().expect("There are no window!");
-    log("Window was selected");
-    let navigator = window.navigator();
-    log("Navigator was selected");
-    let gpu = navigator.gpu();
-    log("Gpu was selected");
-    let gpu_adapter_value =  JsFuture::from(gpu.request_adapter()).await?;
-    let gpu_adapter = GpuAdapter::from(gpu_adapter_value);
-    log("Adapter was selected");
-    let gpu_device_value = JsFuture::from(gpu_adapter.request_device()).await?;
-    let gpu_device = GpuDevice::from(gpu_device_value);
-    log("Device was selected");
-    Ok(gpu_device)
-}
+// async fn device() -> Result<GpuDevice, JsValue>
+// {
+//     let window = web_sys::window().expect("There are no window!");
+//     log("Window was selected");
+//     let navigator = window.navigator();
+//     log("Navigator was selected");
+//     let gpu = navigator.gpu();
+//     log("Gpu was selected");
+//     let gpu_adapter_value =  JsFuture::from(gpu.request_adapter()).await?;
+//     let gpu_adapter = GpuAdapter::from(gpu_adapter_value);
+//     log("Adapter was selected");
+//     let gpu_device_value = JsFuture::from(gpu_adapter.request_device()).await?;
+//     let gpu_device = GpuDevice::from(gpu_device_value);
+//     log("Device was selected");
+//     Ok(gpu_device)
+// }
 
 
 // async fn worker_device() -> Result<GpuDevice, JsValue>
@@ -76,10 +77,11 @@ async fn device() -> Result<GpuDevice, JsValue>
 
 
 #[wasm_bindgen]
-pub async fn naive_gauss_elimination(a_rows_number: u32, a_columns_number: u32, a_elements_values: Vec<f32>,
+pub async fn naive_gauss_elimination(gpu_device: GpuDevice, 
+    a_rows_number: u32, a_columns_number: u32, a_elements_values: Vec<f32>,
     b_elements_values: Vec<f32>) -> Result<JsValue, JsValue>
 {
-    let gpu_device = device().await?;
+    // let gpu_device = device().await?;
     // let gpu_device = worker_device().await?;
 
     let a_size = (a_elements_values.len() * std::mem::size_of::<f32>()) as f64;
