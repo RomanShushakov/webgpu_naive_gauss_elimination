@@ -64,6 +64,26 @@ fn forward_elimination(row: u32, iteration: u32)
 }
 
 
+fn backward_substitution(row: u32, index: u32)
+{
+    let coeff = b.elements_values[index] / a.elements_values[index * a_shape.columns_number + index];
+
+    if (row == index) 
+    {
+        b.elements_values[index] = coeff;
+    }
+    else
+    {
+        b.elements_values[row] = b.elements_values[row] - coeff * a.elements_values[row * a_shape.columns_number + index];
+    }
+
+    if (row == 0u)
+    {
+        iteration_number.number = iteration_number.number + 1u;
+    }
+}
+
+
 [[stage(compute), workgroup_size(1)]]
 fn main([[builtin(global_invocation_id)]] global_id : vec3<u32>) 
 {
@@ -76,10 +96,24 @@ fn main([[builtin(global_invocation_id)]] global_id : vec3<u32>)
     let iteration = iteration_number.number;
     let row = global_id.x;
 
-    if (iteration == 0u || row == 0u || row < iteration) 
+    if (iteration < a_shape.rows_number) 
     {
-        return;
-    }
+        if (iteration == 0u || row == 0u || row < iteration) 
+        {
+            return;
+        }
 
-    forward_elimination(row, iteration);
+        forward_elimination(row, iteration);
+    } 
+    else 
+    {
+        let index = 2u * a_shape.columns_number - iteration - 1u;
+        
+        if (row > index)
+        {
+            return;
+        }
+
+        backward_substitution(row, index);
+    }
 }

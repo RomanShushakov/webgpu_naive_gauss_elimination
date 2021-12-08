@@ -76,7 +76,7 @@ async fn device() -> Result<GpuDevice, JsValue>
 
 
 #[wasm_bindgen]
-pub async fn forward_elimination(a_rows_number: u32, a_columns_number: u32, a_elements_values: Vec<f32>,
+pub async fn naive_gauss_elimination(a_rows_number: u32, a_columns_number: u32, a_elements_values: Vec<f32>,
     b_elements_values: Vec<f32>) -> Result<JsValue, JsValue>
 {
     let gpu_device = device().await?;
