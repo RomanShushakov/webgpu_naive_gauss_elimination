@@ -1,11 +1,11 @@
-[[block]] 
+// [[block]] 
 struct Matrix 
 {
     elements_values: array<f32>;
 };
 
 
-[[block]] 
+// [[block]] 
 struct MatrixShape 
 {
     rows_number: u32;
@@ -13,7 +13,7 @@ struct MatrixShape
 };
 
 
-[[block]] 
+// [[block]] 
 struct IterationNumber 
 {
     number: u32;
@@ -84,7 +84,7 @@ fn backward_substitution(row: u32, index: u32)
 }
 
 
-[[stage(compute), workgroup_size(1)]]
+[[stage(compute), workgroup_size(256)]]
 fn main([[builtin(global_invocation_id)]] global_id : vec3<u32>) 
 {
     // Guard against out-of-bounds work group sizes.
