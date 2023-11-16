@@ -1,36 +1,32 @@
-// [[block]] 
 struct Matrix 
 {
-    elements_values: array<f32>;
-};
+    elements_values: array<f32>,
+}
 
 
-// [[block]] 
 struct MatrixShape 
 {
-    rows_number: u32;
-    columns_number: u32;
+    rows_number: u32,
+    columns_number: u32,
 };
 
 
-// [[block]] 
 struct IterationNumber 
 {
-    number: u32;
+    number: u32,
 };
       
-
-      
-[[group(0), binding(0)]] 
+  
+@group(0) @binding(0) 
 var<storage, read_write> a : Matrix;
 
-[[group(0), binding(1)]] 
+@group(0) @binding(1)
 var<uniform> a_shape : MatrixShape;
 
-[[group(0), binding(2)]] 
+@group(0) @binding(2)
 var<storage, read_write> b : Matrix;
 
-[[group(0), binding(3)]] 
+@group(0) @binding(3)
 var<storage, read_write> iteration_number : IterationNumber;
 
 
@@ -84,8 +80,8 @@ fn backward_substitution(row: u32, index: u32)
 }
 
 
-[[stage(compute), workgroup_size(256)]]
-fn main([[builtin(global_invocation_id)]] global_id : vec3<u32>) 
+@compute @workgroup_size(256)
+fn main(@builtin(global_invocation_id) global_id: vec3<u32>) 
 {
     // Guard against out-of-bounds work group sizes.
     if (global_id.x >= a_shape.rows_number) 

@@ -10,13 +10,13 @@ crate-type = ["cdylib"]
 
 
 [dependencies]
-wasm-bindgen = "0.2.79"
-wasm-bindgen-futures = "0.4.29"
-js-sys = "0.3.56"
+wasm-bindgen = "0.2.88"
+wasm-bindgen-futures = "0.4.38"
+js-sys = "0.3.65"
 
 
 [dependencies.web-sys]
-version = "0.3.56"
+version = "0.3.65"
 features = [
     "Window",
     "Navigator",
@@ -25,7 +25,7 @@ features = [
     "GpuDevice",
     "GpuBuffer", 
     "GpuBufferDescriptor",
-    "GpuBufferUsage",
+    "gpu_buffer_usage",
     "GpuShaderModuleDescriptor",
     "GpuShaderModule",
     "GpuProgrammableStage",
@@ -40,11 +40,19 @@ features = [
     "GpuComputePassEncoder",
     "GpuCommandBuffer",
     "GpuQueue",
-    "GpuMapMode",
+    "gpu_map_mode",
 
     "Worker",
     "WorkerGlobalScope", 
     "WorkerNavigator",
 
     "GpuSupportedLimits",
+
+    "gpu_shader_stage",
+    "GpuBindGroupLayoutEntry",
+    "GpuBufferBindingLayout",
+    "GpuBufferBindingType",
+    "GpuBindGroupLayoutDescriptor",
+    "GpuPipelineLayoutDescriptor",
+    "GpuPipelineLayout",
 ]
